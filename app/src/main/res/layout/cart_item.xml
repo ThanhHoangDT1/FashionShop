@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/pay"
+    android:orientation="horizontal">
+    <CheckBox
+        android:id="@+id/select"
+        android:layout_width="30dp"
+        android:layout_height="120dp"
+        />
+    <ImageView
+        android:id="@+id/image"
+        android:padding="5dp"
+        android:layout_width="100dp"
+        android:layout_height="120dp"/>
+    <LinearLayout
+        android:padding="5dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/nameproduct"
+            android:maxLines="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:text="Tên sản phẩm"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Size:"
+                android:textSize="12sp"/>
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/type"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="đ"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/product_price_old_cart"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Giá cũ "
+                android:textSize="12sp"
+                android:textStyle="normal" />
+            <TextView
+                android:id="@+id/product_price_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giá Sản Phẩm"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                 />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/buttonDecreaseCart"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@color/white"
+                android:src="@drawable/baseline_remove_circle_24"/>
+
+            <!-- EditText hiển thị số lượng -->
+            <EditText
+                android:id="@+id/editTextQuantity"
+                android:layout_width="wrap_content"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:gravity="center"
+                android:text="100"
+                android:textSize="12sp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"/>
+
+            <!-- Button tăng số lượng -->
+            <ImageButton
+                android:id="@+id/buttonIncreaseCart"
+                android:layout_width="25dp"
+                android:background="@color/white"
+                android:layout_height="25dp"
+                android:src="@drawable/outline_add_circle_24"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

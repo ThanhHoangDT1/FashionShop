@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EAEAEF"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        android:background="@color/white">
+        <ImageButton
+            android:id="@+id/back_address_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="left"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="Quay lại"
+            android:src="@drawable/ic_back_arrow" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Địa chỉ mới"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Liên hệ"
+    android:paddingTop="10dp"
+    android:paddingLeft="@dimen/spacing"
+    android:paddingBottom="10dp"
+    android:textSize="12sp"
+
+    />
+        <EditText
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Họ và tên"
+            android:textSize="14sp"
+            android:id="@+id/edt_name_address"
+            android:background="@color/white"/>
+        <EditText
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Số điện thoại"
+            android:textSize="14sp"
+            android:id="@+id/edt_phone_number_address"
+            android:background="@color/white"/>
+
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:paddingTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ"
+            android:paddingBottom="10dp"
+            android:textSize="12sp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:gravity="center"
+            android:id="@+id/choose_address"
+            android:background="@color/white"
+            >
+        <TextView
+            android:id="@+id/name_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Tỉnh/Thành phố, Quận/Huyện, Phường/Xã"
+            android:textSize="14sp"
+            android:paddingLeft="@dimen/spacing"
+
+            android:background="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text=">   "/>
+
+        </RelativeLayout>
+
+
+        <EditText
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Tên đường, Số nhà."
+            android:textSize="14sp"
+            android:id="@+id/edt_name_street_address"
+            android:background="@color/white"/>
+        <TextView
+            android:paddingTop="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cài đặt"
+            android:paddingLeft="@dimen/spacing"
+            android:paddingBottom="10dp"
+            android:textSize="12sp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/white">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đặt làm địa chỉ mặc định"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+            <Switch
+                android:id="@+id/Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:checked="false" />
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/btn_delete_address"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Xóa địa chỉ"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/teal_700"
+            android:background="@color/white"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:visibility="visible"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/btn_add_address"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="HOÀN THÀNH"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:background="@color/teal_700"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</LinearLayout>

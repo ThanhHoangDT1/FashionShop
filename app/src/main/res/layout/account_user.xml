@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        android:background="@color/white">
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="left"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="Quay lại"
+            android:src="@drawable/ic_back_arrow" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Tài khoản và bảo mật"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+        <ImageButton
+            android:id="@+id/edit"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:contentDescription="Trang chủ"
+            android:visibility="invisible"
+            android:src="@drawable/baseline_check_24" />
+
+
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <LinearLayout
+        android:id="@+id/lnchangeavatar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:background="@color/teal_200"
+        >
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/yourAvatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_individual"
+            android:layout_centerInParent="true"
+            app:riv_border_color="#1E88E5"
+            android:layout_marginTop="60dp"
+            app:riv_border_width="1dp"
+            android:layout_gravity="center"
+            app:riv_oval="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4AAFBC"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:text="Chạm để thay đổi" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnchangeName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Tên"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" >"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:id="@+id/lnchangeGD"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Giới tính"/>
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" >"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:id="@+id/lnchangeBD"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Ngày sinh"/>
+        <TextView
+            android:id="@+id/birthday"
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" >"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Tên người dùng"/>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" "/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:id="@+id/lnchangephone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Điện thoại"/>
+        <TextView
+            android:id="@+id/phonnumber"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" >"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:id="@+id/lnchangeEM"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Email"/>
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" >"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:id="@+id/lnchangePW"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingLeft="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Đổi mật khẩu"/>
+        <TextView
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="right"
+            />
+        <TextView
+            android:paddingRight="@dimen/spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=" >"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp" />
+
+</LinearLayout>

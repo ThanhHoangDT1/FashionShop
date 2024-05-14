@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Fashion Shop</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="select_size">Chọn kích cỡ</string>
+       <!-- <string name="default_web_client_id">412244042249-kookf17bdmap3k92hdg0o4d1vnv66433.apps.googleusercontent.com</string>-->
+    <string name="default_web_client_id" translatable="false">412244042249-kookf17bdmap3k92hdg0o4d1vnv66433.apps.googleusercontent.com</string>
+
+
+
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.Home.HomeFragment">
+
+    <!-- Toolbar cho HomeFragment -->
+
+
+    <!-- RecyclerView với LayoutManager được thiết lập trong code Java -->
+
+    <EditText
+        android:id="@+id/edt_search"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/btn_search"
+        android:hint="Tìm kiếm" />
+
+    <ImageButton
+        android:id="@+id/btn_search"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_toStartOf="@+id/btn_filter"
+        android:layout_marginEnd="0dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Tìm kiếm"
+        android:src="@drawable/ic_search"
+        app:tint="@android:color/holo_blue_light" />
+    <ImageButton
+        android:id="@+id/btn_filter"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Lọc"
+        android:src="@drawable/ic_filter"
+        app:tint="@android:color/holo_blue_light" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_below="@id/edt_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:orientation="vertical"
+        android:padding="16dp" />
+
+    <!-- Nội dung của HomeFragment -->
+    <!-- Đặt layout cho nội dung ở đây -->
+
+</RelativeLayout>

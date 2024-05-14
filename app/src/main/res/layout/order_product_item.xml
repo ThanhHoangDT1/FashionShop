@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_margin="10sp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+    <ImageView
+        android:id="@+id/image_pro"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+    <LinearLayout
+
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/name_pro"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="Tên sản phẩm"/>
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/type_pro"
+            android:textSize="15sp"
+            />
+        <RelativeLayout
+            android:paddingTop="10dp"
+            android:layout_gravity="clip_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/price_pro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá Sản Phẩm"
+                android:textColor="@color/brow"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_toStartOf="@+id/quantity_pro"
+                android:layout_marginRight="10dp"
+                android:id="@+id/x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x"
+                android:textColor="@color/brow"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:id="@+id/quantity_pro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="@color/brow"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    Đánh giá    "
+        android:visibility="visible"
+        android:layout_gravity="right"
+        android:background="@color/colorPrimaryDark"
+        android:padding="@dimen/pay"
+        android:textSize="18sp"/>
+
+</LinearLayout>

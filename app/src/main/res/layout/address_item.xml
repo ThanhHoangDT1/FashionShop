@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/name_item"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Nguyen Thanh A"
+            android:textSize="14sp"
+            android:textColor="@color/black"/>
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  |  "/>
+        <TextView
+            android:id="@+id/phonenumber_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/brow"
+            android:text="0362624142"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/brow"
+        android:textSize="13sp"
+        android:id="@+id/address_item"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/brow"
+        android:textSize="13sp"
+        android:id="@+id/street"/>
+    <TextView
+        android:background="@drawable/textview_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:visibility="invisible"
+        android:text="  Mặc định  "
+        android:id="@+id/defaul"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/brow"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp" />
+
+</LinearLayout>

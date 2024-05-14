@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="330dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Spinner để chọn size -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn danh mục"
+        android:textSize="20dp"
+        android:layout_gravity="right"
+        />
+
+    <Spinner
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="28dp"
+        android:contentDescription="Choose category"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- EditText để nhập số lượng -->
+
+
+    <!-- Button để xác nhận -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:hint="Khoảng Giá (đ)"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_marginRight="0dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/edtmin"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="TỐI THIỂU"
+                android:inputType="number"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textSize="26dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginRight="0dp"/>
+
+            <EditText
+                android:id="@+id/edtmax"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:gravity="center"
+                android:hint="TỐI ĐA"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroupPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/under100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0-400k" />
+        <RadioButton
+            android:id="@+id/between100and200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="400k-800k" />
+        <RadioButton
+            android:id="@+id/between200and300"
+            android:layout_marginLeft="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="800k-1000k" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnreset"
+            android:layout_width="140dp"
+            android:textColor="#1D6CE3"
+            android:textSize="13dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="Thiết lập lại"/>
+        <Button
+            android:id="@+id/btnapply"
+            android:layout_width="140dp"
+            android:layout_marginLeft="9dp"
+            android:textSize="13dp"
+            android:layout_height="wrap_content"
+            android:text="Áp dụng"/>
+    </LinearLayout>
+
+</LinearLayout>
