@@ -190,7 +190,7 @@ public class PayContentFragment extends Fragment {
 
     private void chooseVoucher(String value) {
 
-        ApiService.productServiceWithToken.getVoucher(value, true).enqueue(new Callback<ResponeVoucher>() {
+        ApiService.productServiceWithToken.getVoucher(value).enqueue(new Callback<ResponeVoucher>() {
             @Override
             public void onResponse(Call<ResponeVoucher> call, Response<ResponeVoucher> response) {
 
@@ -434,6 +434,9 @@ public class PayContentFragment extends Fragment {
             }
             order.setIdsVoucher(listIdVoucher);
 
+            order.setFeeShip(feeship);
+            order.setDiscountAmount(gs+gv);
+
             ApiService.productServiceWithToken.postOrder(order).enqueue(new Callback<ResponseOrder>() {
                 @Override
                 public void onResponse(Call<ResponseOrder> call, Response<ResponseOrder> response) {
@@ -494,24 +497,19 @@ public class PayContentFragment extends Fragment {
         }
         return 0;
     }
-
     private boolean isVoucherApplicable(double valueOrder, Voucher voucher) {
         if (voucher == null) {
             Log.e("VoucherManager", "Voucher is null");
         }
-
         if (!voucher.isActive()) {
             Log.e("VoucherManager", "Voucher is not active");
         }
-
         if (voucher.getExpiryDate().isBefore(LocalDateTime.now())) {
             Log.e("VoucherManager", "Voucher has expired");
         }
-
         if (valueOrder < voucher.getMinimumPurchaseAmount()) {
             Log.e("VoucherManager", "Order value does not meet the minimum requirement");
         }
-
         if (voucher.getUsageCount() >= voucher.getUsageLimit()) {
             Log.e("VoucherManager", "Voucher usage limit has been reached");
         }

@@ -195,7 +195,7 @@ public interface ApiService {
 
  //
     @GET("/api/vouchers")
-    Call<ResponeVoucher> getVoucher(@Query("voucherType") String type,@Query("active") Boolean active);
+    Call<ResponeVoucher> getVoucher(@Query("voucherType") String type);
 
 
     @GET("/api/orders/fee-ship")

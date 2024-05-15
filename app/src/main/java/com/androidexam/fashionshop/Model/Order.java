@@ -14,13 +14,22 @@ public class Order {
     private String note;
     private double totalAmount;
     private double discountAmount;
+
     private List<Integer> idsVoucher; // ID của voucher
     private List<CartItem> orderItems;
     private int userId; // ID của user
     private String wardCode;
     private long districtId;
     private String urlPayment;
+    private double feeShip;
 
+    public double getFeeShip() {
+        return feeShip;
+    }
+
+    public void setFeeShip(double feeShip) {
+        this.feeShip = feeShip;
+    }
 
     public Order() {
     }
