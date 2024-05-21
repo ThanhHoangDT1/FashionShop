@@ -14,7 +14,7 @@ public class Order {
     private String note;
     private double totalAmount;
     private double discountAmount;
-
+    private double discountShippingFee;
     private List<Integer> idsVoucher; // ID của voucher
     private List<CartItem> orderItems;
     private int userId; // ID của user
@@ -32,6 +32,14 @@ public class Order {
     }
 
     public Order() {
+    }
+
+    public double getDiscountShippingFee() {
+        return discountShippingFee;
+    }
+
+    public void setDiscountShippingFee(double discountShippingFee) {
+        this.discountShippingFee = discountShippingFee;
     }
 
     public int getId() {

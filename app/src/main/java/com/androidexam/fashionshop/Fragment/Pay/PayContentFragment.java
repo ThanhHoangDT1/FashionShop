@@ -32,6 +32,7 @@ import com.androidexam.fashionshop.Model.AddressItem;
 import com.androidexam.fashionshop.Model.CartItem;
 import com.androidexam.fashionshop.Model.Order;
 import com.androidexam.fashionshop.Model.ResponeVoucher;
+import com.androidexam.fashionshop.Model.Responeurl;
 import com.androidexam.fashionshop.Model.ResponseOrder;
 import com.androidexam.fashionshop.Model.ShippingResponse;
 import com.androidexam.fashionshop.Model.Voucher;
@@ -435,14 +436,15 @@ public class PayContentFragment extends Fragment {
             order.setIdsVoucher(listIdVoucher);
 
             order.setFeeShip(feeship);
-            order.setDiscountAmount(gs+gv);
+            order.setDiscountAmount(gv);
+            order.setDiscountShippingFee(gs);
 
-            ApiService.productServiceWithToken.postOrder(order).enqueue(new Callback<ResponseOrder>() {
+            ApiService.productServiceWithToken.postOrder(order).enqueue(new Callback<Responeurl>() {
                 @Override
-                public void onResponse(Call<ResponseOrder> call, Response<ResponseOrder> response) {
+                public void onResponse(Call<Responeurl> call, Response<Responeurl> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getContext(), "Đặt hàng thành công.", Toast.LENGTH_SHORT).show();
-                        ResponseOrder responseOrder = response.body();
+                        Responeurl responseOrder = response.body();
                         if (responseOrder.getUrlPayment() != null) {
                             String url = responseOrder.getUrlPayment();
 
@@ -459,7 +461,7 @@ public class PayContentFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseOrder> call, Throwable t) {
+                public void onFailure(Call<Responeurl> call, Throwable t) {
                     Toast.makeText(getContext(), "Đặt hàng không thành công. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
 
                 }

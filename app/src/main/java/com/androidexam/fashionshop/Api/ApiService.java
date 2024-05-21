@@ -17,6 +17,7 @@ import com.androidexam.fashionshop.Model.Product;
 import com.androidexam.fashionshop.Model.ProductResponse;
 import com.androidexam.fashionshop.Model.Product_Detail;
 import com.androidexam.fashionshop.Model.ResponeVoucher;
+import com.androidexam.fashionshop.Model.Responeurl;
 import com.androidexam.fashionshop.Model.ResponseForgotPW;
 import com.androidexam.fashionshop.Model.ResponseGetOrderItemDelivered;
 import com.androidexam.fashionshop.Model.ResponseGetOrdered;
@@ -52,9 +53,9 @@ import java.util.List;
 
 public interface ApiService {
 
-   String BASE_URL = "http://192.168.2.89:5000";
+   String BASE_URL = "http://192.168.2.98:5000";
 
-   // String BASE_URL = "http://192.168.2.147:8080";
+    //String BASE_URL = "http://192.168.1.7:8080";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -204,7 +205,7 @@ public interface ApiService {
 
 
     @POST("/api/orders")
-    Call<ResponseOrder> postOrder(@Body Order order);
+    Call<Responeurl> postOrder(@Body Order order);
     @GET("/api/orders/users/{userId}")
     Call<ResponseGetOrdered> getOrder(@Path("userId") int userId);
     @GET("/api/orders/users/{userId}")

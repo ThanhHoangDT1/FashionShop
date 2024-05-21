@@ -94,13 +94,13 @@ public class WebViewFragment extends Fragment {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // Kiểm tra xem URL có phải là "https://sub.tuoimakeup.com/order?state=1" không
-                if (url.equals("https://sub.tuoimakeup.com/order?state=1")) {
+                if (url.equals("http://192.168.2.98:5000/vnpay_return?state=1")) {
 
                     onHome();
                     Toast.makeText(getContext(), "Thanh toán thành công.", Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                else if (url.equals("https://sub.tuoimakeup.com/order?state=0")){
+                else if (url.equals("http://192.168.2.98:5000/vnpay_return?state=0")){
                     onHome();
                     Toast.makeText(getContext(), "Thanh toán không thành công. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
                     return true;
