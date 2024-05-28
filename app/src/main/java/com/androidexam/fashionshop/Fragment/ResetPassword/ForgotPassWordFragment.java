@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +16,9 @@ import androidx.fragment.app.FragmentManager;
 import com.androidexam.fashionshop.Api.ApiService;
 import com.androidexam.fashionshop.Fragment.ResetPassword.EnterOTPFragment;
 import com.androidexam.fashionshop.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -67,12 +71,24 @@ public class ForgotPassWordFragment extends Fragment {
 
                         navigateToEnterOTPFragment(email);
                     } catch (IOException e) {
+
                         e.printStackTrace();
                         Log.e("User", "Error reading response body: " + e.getMessage());
                     }
                 } else {
-                    Log.e("User", "Error: " + response.message());
-                    Log.e("User", "Error Code: " + response.code());
+                    String errorMessage = null;
+                    try {
+                        errorMessage = response.errorBody().string();
+                        JSONObject errorJson = new JSONObject(errorMessage);
+                        String message = errorJson.getString("message");
+                        Toast.makeText(getContext(),message, Toast.LENGTH_SHORT).show();
+                        Log.e("User", "Error: " + response.body());
+                        Log.e("User", "Error Code: " + response.code());
+                    } catch (IOException | JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    // Nếu thông điệp lỗi là JSON, bạn có thể sử dụng một thư viện JSON để phân tích cú pháp
+
                 }
 
             }

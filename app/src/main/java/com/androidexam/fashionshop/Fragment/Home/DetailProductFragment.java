@@ -1,5 +1,7 @@
 package com.androidexam.fashionshop.Fragment.Home;
 
+import static android.view.View.GONE;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -183,13 +185,27 @@ public class DetailProductFragment extends Fragment {
         ImageButton buttonDecrease = dialogView.findViewById(R.id.buttonDecrease);
         ImageView imageDialog = dialogView.findViewById(R.id.image_dialog);
         Picasso.get().load(productDetail.getProductUrls().get(0)).into(imageDialog);
-        TextView productPriceOld = dialogView.findViewById(R.id.product_price_old);
-        String originalPrice = String.valueOf(decimalFormat.format(productDetail.getPrice()));
-        TextView productPrice = dialogView.findViewById(R.id.product_price);
-        SpannableString spannableString = new SpannableString(originalPrice);
-        spannableString.setSpan(new StrikethroughSpan(), 0, originalPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        productPriceOld.setText(spannableString);
-        productPrice.setText(String.valueOf("đ" + decimalFormat.format(productDetail.getPrice_promote())));
+
+
+        if(productDetail.getPrice()!= productDetail.getPrice_promote()) {
+            TextView productPriceOld = dialogView.findViewById(R.id.product_price_old);
+            String originalPrice = String.valueOf(decimalFormat.format(productDetail.getPrice()));
+            TextView productPrice = dialogView.findViewById(R.id.product_price);
+            SpannableString spannableString = new SpannableString(originalPrice);
+            spannableString.setSpan(new StrikethroughSpan(), 0, originalPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            productPriceOld.setText(spannableString);
+            productPrice.setText(String.valueOf("đ" + decimalFormat.format(productDetail.getPrice_promote())));
+        }
+        else{
+            TextView productPriceOld = dialogView.findViewById(R.id.product_price_old);
+            productPriceOld.setVisibility(GONE);
+            TextView d = dialogView.findViewById(R.id.d);
+            d.setVisibility(GONE);
+            TextView productPrice = dialogView.findViewById(R.id.product_price);
+            productPrice.setText(String.valueOf("đ" + decimalFormat.format(productDetail.getPrice_promote())));
+        }
+
+
         TextView quantityTextView = dialogView.findViewById(R.id.quatity);
         buttonIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,7 +294,7 @@ public class DetailProductFragment extends Fragment {
         }
         if(x==0){
             buttonConfirm.setVisibility(View.VISIBLE);
-            buttonConfirmBuyNow.setVisibility(View.GONE);
+            buttonConfirmBuyNow.setVisibility(GONE);
             buttonConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -294,7 +310,9 @@ public class DetailProductFragment extends Fragment {
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 if (response.isSuccessful()) {
                                     ResponseBody addedCart = response.body();
+
                                     Toast.makeText(getContext(), "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                                    getCartAccount();
                                 } else {
                                     Toast.makeText(getContext(), "khong them thanh cong. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
                                 }
@@ -315,7 +333,7 @@ public class DetailProductFragment extends Fragment {
                 }
             });
         } else if (x==1) {
-            buttonConfirm.setVisibility(View.GONE);
+            buttonConfirm.setVisibility(GONE);
             buttonConfirmBuyNow.setVisibility(View.VISIBLE);
             buttonConfirmBuyNow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -457,7 +475,7 @@ public class DetailProductFragment extends Fragment {
                         cart_account.setText(String.valueOf(i));
                     }
                     else {
-                        cart_account.setVisibility(View.GONE);
+                        cart_account.setVisibility(GONE);
                     }
                 } else {
                     Log.e("API Error", "Response is not successful");

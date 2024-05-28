@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Order {
-    private int id;
+    private String id;
     private LocalDateTime orderDate;
     private String orderStatus;
     private String paymentMethod;
@@ -42,11 +42,11 @@ public class Order {
         this.discountShippingFee = discountShippingFee;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

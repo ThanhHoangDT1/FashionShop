@@ -71,6 +71,7 @@ public class WebViewFragment extends Fragment {
         }
 
         String url = bundle.getString("url");
+        String orderId = bundle.getString("orderId");
         if (url != null) {
             Log.d("URL", url);
             webView.loadUrl(url);

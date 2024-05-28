@@ -47,7 +47,7 @@ public class OrderedItemAdapter extends RecyclerView.Adapter<OrderedItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull OrderedItemViewHolder holder, int position) {
-        int orderedId =orderedItemList.get(position).getId();
+        String orderedId =orderedItemList.get(position).getId();
         ResponseOrder orderedItem = orderedItemList.get(position);
         // Hiển thị thông tin OrderedItem trong ViewHolder
             holder.idTextView.setText("ID                 : " + orderedItem.getId());
@@ -66,7 +66,7 @@ public class OrderedItemAdapter extends RecyclerView.Adapter<OrderedItemAdapter.
                 if (fragmentManager != null) {
                     OrderedDetailFragment orderedDetailFragment = new OrderedDetailFragment();
                     Bundle args = new Bundle();
-                    args.putInt("orderedId", orderedId);
+                    args.putString("orderedId", orderedId);
                     orderedDetailFragment.setArguments(args);
 
                     FragmentTransaction transaction = fragmentManager.beginTransaction();

@@ -55,7 +55,7 @@ import retrofit2.Response;
 
 
 public class OrderedDetailContentFragment extends Fragment {
-    private int orderedId;
+    private String orderedId;
     private ResponseOrder orderDetail;
     private RecyclerView rcvListBuy;
     private PaymentAdapter paymentAdapter;
@@ -105,7 +105,7 @@ public class OrderedDetailContentFragment extends Fragment {
         // rcvListBuy.setAdapter(paymentAdapter);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            orderedId = bundle.getInt("orderedId", -1);
+            orderedId = bundle.getString("orderedId","");
         }
         fetchAddressData();
 
@@ -175,7 +175,7 @@ public class OrderedDetailContentFragment extends Fragment {
 
     private void fetchAddressData() {
 
-        if (orderedId != -1) {
+        if (orderedId != "") {
             ApiService.productServiceWithToken.getOrderDetail(orderedId).enqueue(new Callback<ResponseOrder>() {
                 @Override
                 public void onResponse(Call<ResponseOrder> call, Response<ResponseOrder> response) {

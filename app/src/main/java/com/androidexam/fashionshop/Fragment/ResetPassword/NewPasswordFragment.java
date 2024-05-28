@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -104,6 +105,7 @@ public class NewPasswordFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
+                        Toast.makeText(getContext(),"Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
                             navigateToLoginFragment();
                     } else {
                         Log.e("User", "Error: " + response.message());

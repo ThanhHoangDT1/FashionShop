@@ -6,14 +6,14 @@ public class OrderItem {
     private double unitPrice;
     private String sizeType;
     private int productId;
-    private int orderId;
+    private String orderId;
     private boolean rate;
 
     public OrderItem() {
         // Constructor mặc định
     }
 
-    public OrderItem(int id, int quantity, double unitPrice, String sizeType, int productId, int orderId, boolean rate) {
+    public OrderItem(int id, int quantity, double unitPrice, String sizeType, int productId, String orderId, boolean rate) {
         this.id = id;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
@@ -65,11 +65,11 @@ public class OrderItem {
         this.productId = productId;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

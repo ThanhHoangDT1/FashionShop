@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
     private void fetchProductData() {
-        ApiService.productService.getAllProducts().enqueue(new Callback<ProductResponse>() {
+        ApiService.productService.getAllProducts(1).enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if (response.isSuccessful()) {

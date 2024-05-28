@@ -3,7 +3,7 @@ package com.androidexam.fashionshop.Model;
 import java.util.List;
 
 public class ResponseOrder {
-        private int id;
+        private String id;
         private String orderDate;
         private String orderStatus;
         private String paymentMethod;
@@ -22,11 +22,11 @@ public class ResponseOrder {
 
         // Các phương thức getter và setter cho từng thuộc tính
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 

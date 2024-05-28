@@ -237,6 +237,11 @@ public class CartFragment extends Fragment implements CartAdapter.CartAdapterLis
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
                 if (response.isSuccessful()) {
                     List<CartItem> newCart = response.body();
+                    for (CartItem i:newCart
+                         ) {
+                        Log.d("IN CART", i.getSize()+",so luong: "+i.getQuantity());
+
+                    }
                     if (newCart != null && !newCart.isEmpty()) {
                         cartItemList.clear();
                         cartItemList.addAll(newCart);

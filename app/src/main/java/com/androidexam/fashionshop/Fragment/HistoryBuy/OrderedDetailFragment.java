@@ -31,7 +31,7 @@ public class OrderedDetailFragment extends Fragment  {
     private AddressItem addressItemChosen;
     private ArrayList<Integer> listIds;
     ArrayList<CartItem> listBuy;
-    private int orderId;
+    private String orderId;
     public OrderedDetailFragment() {
         // Required empty public constructor
     }
@@ -47,7 +47,7 @@ public class OrderedDetailFragment extends Fragment  {
         orderedDetailContentFragment = new OrderedDetailContentFragment();
         Bundle bundle = getArguments();
         if (bundle != null) {
-            orderId = bundle.getInt("orderedId",-1);
+            orderId = bundle.getString("orderedId","");
         }
 
             back.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class OrderedDetailFragment extends Fragment  {
             });
             childFragmentManager = getChildFragmentManager();
             Bundle args = new Bundle();
-            args.putInt("orderedId", orderId);
+            args.putString("orderedId", orderId);
             //args.putString("status",);
             orderedDetailContentFragment.setArguments(args);
             childFragmentManager.beginTransaction()

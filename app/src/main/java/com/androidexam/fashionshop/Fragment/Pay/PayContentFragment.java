@@ -448,6 +448,7 @@ public class PayContentFragment extends Fragment {
                         if (responseOrder.getUrlPayment() != null) {
                             String url = responseOrder.getUrlPayment();
 
+
                             VNPay(url);
                         }
                         else {

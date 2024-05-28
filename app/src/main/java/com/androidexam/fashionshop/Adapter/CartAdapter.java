@@ -3,6 +3,7 @@ package com.androidexam.fashionshop.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -43,15 +44,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private OnItemSelectionChangedListener onItemSelectionChangedListener;
     private OnItemUpdatedListener onItemUpdatedListener;
     private OnQuantityChangedListener quantityChangedListener;
+    private Handler handler = new Handler();
+    private Runnable updateRunnable;
+
     public interface CartAdapterListener {
         void onCartUpdated();
     }
+
     private CartAdapterListener listener;
 
     public void setCartAdapterListener(CartAdapterListener listener) {
         this.listener = listener;
     }
-
 
     private TextWatcher textWatcher;
     private List<CartItem> cartItemList;
@@ -69,8 +73,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
         return new CartViewHolder(view);
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
@@ -99,7 +101,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                             if (response.isSuccessful()) {
                                 Product_Detail productDetail = response.body();
                                 if (productDetail != null) {
-
                                     cartItem.setSizeProduct(productDetail.getSizeNames());
                                     cartItem.setProductName(productDetail.getProductName());
                                     cartItem.setDisPrice(productDetail.getPrice_promote());
@@ -125,6 +126,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 });
             }
         }
+
         holder.bind(cartItem, this);
     }
 
@@ -174,7 +176,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         private ImageButton add, sub;
         private TextView sizeTextView;
 
-
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             SharedPreferences preferences = context.getSharedPreferences("ID_USER", Context.MODE_PRIVATE);
@@ -213,20 +214,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             if (sizeList != null && sizeTextView != null) {
                 String sizeCurrent = cartItem.getSize();
                 sizeTextView.setText(sizeCurrent);
-                sizeTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openSizeDialog(cartItem,cartAdapter);
-                        //notifyDataSetChanged();
-                    }
-                });
+                sizeTextView.setOnClickListener(v -> openSizeDialog(cartItem, cartAdapter));
             }
 
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    currentQuantity++;
+            add.setOnClickListener(v -> {
+                currentQuantity++;
+                SharedData.setLoadingFirstTime(false);
+                // Remove TextWatcher to prevent triggering afterTextChanged unnecessarily
+                quantityEdt.removeTextChangedListener(textWatcher);
+                quantityEdt.setText(String.valueOf(currentQuantity));
+                // Re-attach TextWatcher
+                quantityEdt.addTextChangedListener(textWatcher);
+            });
+
+            sub.setOnClickListener(v -> {
+                if (currentQuantity > 1) {
                     SharedData.setLoadingFirstTime(false);
+                    currentQuantity--;
                     // Remove TextWatcher to prevent triggering afterTextChanged unnecessarily
                     quantityEdt.removeTextChangedListener(textWatcher);
                     quantityEdt.setText(String.valueOf(currentQuantity));
@@ -235,22 +239,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 }
             });
 
-            sub.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (currentQuantity > 1) {
-                        SharedData.setLoadingFirstTime(false);
-                        currentQuantity--;
-                        // Remove TextWatcher to prevent triggering afterTextChanged unnecessarily
-                        quantityEdt.removeTextChangedListener(textWatcher);
-                        quantityEdt.setText(String.valueOf(currentQuantity));
-                        // Re-attach TextWatcher
-                        quantityEdt.addTextChangedListener(textWatcher);
-                    }
-                }
-            });
-
-            TextWatcher textWatcher = new TextWatcher() {
+            textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     // Nothing to do here
@@ -275,61 +264,68 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 @Override
                 public void afterTextChanged(Editable editable) {
                     Log.d("CART", "afterTextChanged called");
+
                     if (!editable.toString().isEmpty()) {
                         int enteredQuantity = Integer.parseInt(editable.toString());
                         currentQuantity = enteredQuantity;
 
                         if (enteredQuantity > cartItem.getRemain()) {
-                            // Remove TextWatcher to prevent triggering afterTextChanged unnecessarily
                             quantityEdt.removeTextChangedListener(this);
                             quantityEdt.setText(String.valueOf(cartItem.getRemain()));
                             currentQuantity = cartItem.getRemain();
-                            // Re-attach TextWatcher
                             quantityEdt.addTextChangedListener(this);
                             return;
                         }
 
                         if (String.valueOf(enteredQuantity).length() > String.valueOf(cartItem.getRemain()).length()) {
-                            // Remove TextWatcher to prevent triggering afterTextChanged unnecessarily
                             quantityEdt.removeTextChangedListener(this);
                             quantityEdt.setText(String.valueOf(cartItem.getRemain()));
                             currentQuantity = cartItem.getRemain();
-                            // Re-attach TextWatcher
                             quantityEdt.addTextChangedListener(this);
                         }
-                        boolean loadingFirstTime = SharedData.isLoadingFirstTime();
-                        if (loadingFirstTime != true) {
-                            int quantity = Integer.parseInt(quantityEdt.getText().toString());
-                            CartItem updatedCartItem = new CartItem(cartItem.getId(), quantity, cartItem.getProductId(), cartItem.getSize());
-                            Log.d("CART", "userId: : "+ userId+"id: "+cartItem.getId());
-                            ApiService.productServiceWithToken.editProduct(userId, cartItem.getId(), updatedCartItem).enqueue(new Callback<CartItem>() {
-                                @Override
-                                public void onResponse(Call<CartItem> call, Response<CartItem> response) {
-                                    if (response.isSuccessful()) {
-                                        CartItem addedCart = response.body();
-                                        Log.d("long", "thanh cong");
-                                    } else {
-                                        Log.d("long", "that bai");
-                                        Toast.makeText(context, "Thêm không thành công. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
 
-                                @Override
-                                public void onFailure(Call<CartItem> call, Throwable t) {
-                                    Toast.makeText(context, "Có lỗi xảy ra. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } else {
-                            SharedData.setLoadingFirstTime(true);
+                        if (updateRunnable != null) {
+                            handler.removeCallbacks(updateRunnable);
                         }
+
+                        updateRunnable = () -> {
+                            boolean loadingFirstTime = SharedData.isLoadingFirstTime();
+                            if (!loadingFirstTime) {
+                                int quantity = Integer.parseInt(quantityEdt.getText().toString());
+                                CartItem updatedCartItem = new CartItem(cartItem.getId(), quantity, cartItem.getProductId(), cartItem.getSize());
+                                Log.d("CART", "userId: : " + userId + "id: " + cartItem.getId());
+                                ApiService.productServiceWithToken.editProduct(userId, cartItem.getId(), updatedCartItem).enqueue(new Callback<CartItem>() {
+                                    @Override
+                                    public void onResponse(Call<CartItem> call, Response<CartItem> response) {
+                                        if (response.isSuccessful()) {
+                                            CartItem addedCart = response.body();
+                                            Log.d("long", "thanh cong");
+                                            notifyDataSetChanged();
+                                        } else {
+                                            Log.d("long", "that bai");
+                                            Toast.makeText(context, "Thêm không thành công. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<CartItem> call, Throwable t) {
+                                        Toast.makeText(context, "Có lỗi xảy ra. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                SharedData.setLoadingFirstTime(true);
+                            }
+                        };
+
+                        handler.postDelayed(updateRunnable, 500); // Thời gian đệm là 500ms
                     }
                 }
             };
 
-// Attach TextWatcher to quantityEdt
+            // Attach TextWatcher to quantityEdt
             quantityEdt.addTextChangedListener(textWatcher);
-
         }
+
         private void openSizeDialog(CartItem cartItem, CartAdapter cartAdapter) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             View dialogView = LayoutInflater.from(context).inflate(R.layout.sizedialog, null);
@@ -338,52 +334,45 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             ListView listView = dialogView.findViewById(R.id.listViewSize);
             List<String> sizeList = cartItem.getSizeProduct();
             ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, sizeList);
-            AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String selectedSize = sizeList.get(position);
+            AdapterView.OnItemClickListener itemClickListener = (parent, view, position, id) -> {
+                String selectedSize = sizeList.get(position);
 
-                    // Your size selection logic here
-                    sizeTextView.setText(selectedSize);
+                // Your size selection logic here
+                sizeTextView.setText(selectedSize);
 
-                    // Gửi API và cập nhật danh sách
-                    int quantity = Integer.parseInt(quantityEdt.getText().toString());
-                    CartItem updatedCartItem = new CartItem();
-                    updatedCartItem.setSize(selectedSize);
-                    updatedCartItem.setId(cartItem.getId());
-                    updatedCartItem.setProductId(cartItem.getProductId());
-                    updatedCartItem.setQuantity(quantity);
+                // Gửi API và cập nhật danh sách
+                int quantity = Integer.parseInt(quantityEdt.getText().toString());
+                CartItem updatedCartItem = new CartItem();
+                updatedCartItem.setSize(selectedSize);
+                updatedCartItem.setId(cartItem.getId());
+                updatedCartItem.setProductId(cartItem.getProductId());
+                updatedCartItem.setQuantity(quantity);
 
-                    ApiService.productServiceWithToken.editProduct(userId, cartItem.getId(), updatedCartItem).enqueue(new Callback<CartItem>() {
-                        @Override
-                        public void onResponse(Call<CartItem> call, Response<CartItem> response) {
-                            if (response.isSuccessful()) {
-                                CartItem cartItem1 = response.body();
-                                if (cartItem1 != null && cartAdapter != null) {
-                                    cartAdapter.updateCartItem(getAdapterPosition(), updatedCartItem);
-
-                                    notifyDataSetChanged();
-                                    if (listener != null) {
-                                        listener.onCartUpdated();
-                                    }
-
+                ApiService.productServiceWithToken.editProduct(userId, cartItem.getId(), updatedCartItem).enqueue(new Callback<CartItem>() {
+                    @Override
+                    public void onResponse(Call<CartItem> call, Response<CartItem> response) {
+                        if (response.isSuccessful()) {
+                            CartItem cartItem1 = response.body();
+                            if (cartItem1 != null && cartAdapter != null) {
+                                cartAdapter.updateCartItem(getAdapterPosition(), updatedCartItem);
+                                notifyDataSetChanged();
+                                if (listener != null) {
+                                    listener.onCartUpdated();
                                 }
-                                // Đóng dialog khi API thành công
-                                if (sizeDialog != null && sizeDialog.isShowing()) {
-                                    sizeDialog.dismiss();
-                                }
-                            } else {
-                                Toast.makeText(context, "Thay đổi size không thành công. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
                             }
-
+                            if (sizeDialog != null && sizeDialog.isShowing()) {
+                                sizeDialog.dismiss();
+                            }
+                        } else {
+                            Toast.makeText(context, "Thay đổi size không thành công. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<CartItem> call, Throwable t) {
-                            Toast.makeText(context, "Lỗi kết nối. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                    @Override
+                    public void onFailure(Call<CartItem> call, Throwable t) {
+                        Toast.makeText(context, "Lỗi kết nối. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             };
             listView.setOnItemClickListener(itemClickListener);
             listView.setAdapter(sizeAdapter);
@@ -392,7 +381,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             sizeDialog.getWindow().setLayout(300, 400);
             sizeDialog.show();
         }
-
     }
 
     public interface OnItemSelectionChangedListener {
@@ -414,16 +402,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void setOnItemUpdatedListener(OnItemUpdatedListener listener) {
         this.onItemUpdatedListener = listener;
     }
+
     private int calculateRecyclerViewHeight(int itemCount) {
         // Tính toán chiều cao dựa trên kích thước item và số lượng item
         int itemHeight = calculateItemHeight();
         int totalHeight = itemHeight * itemCount;
         return totalHeight;
     }
+
     private int calculateItemHeight() {
         // Tính toán chiều cao của mỗi item, có thể cần điều chỉnh theo yêu cầu của bạn
         // Ví dụ: return chiều cao cố định, hoặc tính toán dựa trên các yếu tố khác
         return 300; // Đây chỉ là một giả định, bạn cần điều chỉnh nó theo yêu cầu thực tế
     }
 }
-

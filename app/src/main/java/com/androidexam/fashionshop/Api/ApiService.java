@@ -53,9 +53,9 @@ import java.util.List;
 
 public interface ApiService {
 
-   String BASE_URL = "http://192.168.2.98:5000";
+   String BASE_URL = "https://final-project-datn.onrender.com";
 
-    //String BASE_URL = "http://192.168.1.7:8080";
+    //String BASE_URL = "http://192.168.4.21:8080";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -103,7 +103,7 @@ public interface ApiService {
 
     // Định nghĩa yêu cầu API để lấy danh sách sản phẩm
     @GET("/products/all")
-    Call<ProductResponse> getAllProducts();
+    Call<ProductResponse> getAllProducts(@Query("page") int page);
 
     @GET("/api/product/product/searchAll")
     Call<ProductResponse> getProducts(@Query("keyword") String keyword);
@@ -159,9 +159,6 @@ public interface ApiService {
 
 
 
-
-
-
     //địa chỉ
     @GET("/api/users/{userId}/addresses")
     Call<List<AddressItem>> getAddress(@Path("userId") int userId);
@@ -206,16 +203,18 @@ public interface ApiService {
 
     @POST("/api/orders")
     Call<Responeurl> postOrder(@Body Order order);
+
+
     @GET("/api/orders/users/{userId}")
     Call<ResponseGetOrdered> getOrder(@Path("userId") int userId);
     @GET("/api/orders/users/{userId}")
     Call<ResponseGetOrdered> getOrder(@Path("userId") int userId, @Query("orderStatus") String orderStatus);
     @GET("/api/orders/{orderId}")
-    Call<ResponseOrder> getOrderDetail(@Path("orderId") int orderId);
+    Call<ResponseOrder> getOrderDetail(@Path("orderId") String orderId);
     @PUT("/api/orders/{orderId}")
-    Call<ResponseOrder> cancelOrder(@Path("orderId") int orderId,@Query("orderStatus") String orderStatus);
+    Call<ResponseOrder> cancelOrder(@Path("orderId") String orderId,@Query("orderStatus") String orderStatus);
 
-    @GET(" /api/orders/users/{userId}/order-items")
+    @GET("/api/orders/users/{userId}/order-items")
     Call<ResponseGetOrderItemDelivered> getOrderItemDelivered(@Path("userId") int userId, @Query("isRate") boolean isRate);
 
 
