@@ -53,7 +53,7 @@ import java.util.List;
 
 public interface ApiService {
 
-   String BASE_URL = "https://final-project-datn.onrender.com";
+   String BASE_URL = "http://192.168.31.173:8080";
 
     //String BASE_URL = "http://192.168.4.21:8080";
 
@@ -102,9 +102,10 @@ public interface ApiService {
 
 
     // Định nghĩa yêu cầu API để lấy danh sách sản phẩm
-    @GET("/products/all")
+    @GET("/products")
     Call<ProductResponse> getAllProducts(@Query("page") int page);
-
+    @GET("/products/all")
+    Call<ProductResponse> getProductsall();
     @GET("/api/product/product/searchAll")
     Call<ProductResponse> getProducts(@Query("keyword") String keyword);
 
