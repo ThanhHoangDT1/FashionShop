@@ -178,9 +178,12 @@ public class Product_Detail {
     // Trong lớp Product_Detail
     public List<Comment> getComments() {
         List<Comment> comments = new ArrayList<>();
+        int size = Math.max(commentUsers.size(), avatarUsers.size());
+            for (int i = 0; i < size; i++) {
+                String avatar = (i < avatarUsers.size()) ? avatarUsers.get(i) : "default_avatar_url";
 
-            for (int i = 0; i < commentUsers.size(); i++) {
-                Comment comment = new Comment(avatarUsers.get(i),commentUsers.get(i), commentContents.get(i), commentCreatedAts.get(i),rate.get(i));
+
+                Comment comment = new Comment(avatar,commentUsers.get(i), commentContents.get(i), commentCreatedAts.get(i),rate.get(i));
                 comments.add(comment);
             }
             return comments;

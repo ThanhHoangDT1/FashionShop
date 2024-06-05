@@ -82,7 +82,7 @@ public class IndividualFragment extends Fragment {
         if(userId!=-1){
 
 
-            //getquatityorder();
+            getquatityorder();
             avatar = view.findViewById(R.id.yourAvatar);
             username = view.findViewById(R.id.tvUser);
             name = view.findViewById(R.id.tvName);
@@ -97,7 +97,7 @@ public class IndividualFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     HistoryFragment historyFragment = new HistoryFragment();
-                    // Thực hiện transaction để thêm historyFragment vào fragment_container
+
                     FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, historyFragment);
                     transaction.addToBackStack(null);
@@ -105,15 +105,10 @@ public class IndividualFragment extends Fragment {
                     requireActivity().getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
                         @Override
                         public void onBackStackChanged() {
-                            // Gọi goToTab khi transaction đã được commit xong
                             historyFragment.goToTab(1);
-                            // Loại bỏ listener để tránh gọi lại nếu có thêm transaction khác
                             requireActivity().getSupportFragmentManager().removeOnBackStackChangedListener(this);
                         }
                     });
-
-                    // Thiết lập TabClickListener cho historyFragment
-
                 }
             });
 

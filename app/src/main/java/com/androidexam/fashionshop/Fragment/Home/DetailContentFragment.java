@@ -111,6 +111,7 @@ public class DetailContentFragment extends Fragment {
             ItemDecorationExample itemDecoration = new ItemDecorationExample(this, R.dimen.spacing);
             recyclerView.addItemDecoration(itemDecoration);
             ratebar.setRating(productDetail.getAvgRate());
+            ratebar.setEnabled(false);
 
             List<String> sizeList = productDetail.getSizeNames();
             if (alertDialog != null && alertDialog.isShowing()) {

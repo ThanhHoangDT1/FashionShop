@@ -205,7 +205,6 @@ public class OrderedDetailContentFragment extends Fragment {
                             listBuy.clear();
                             for (OrderItem orderItem: orderDetail.getOrderItems()
                                  ) {
-                                Log.d("PRODUCTid", String.valueOf(orderItem.getProductId()));
 
                                 listBuy.add(new CartItem(orderItem.getQuantity(),orderItem.getProductId(),orderItem.getSizeType(),(long)orderItem.getUnitPrice(),url));
 

@@ -24,14 +24,11 @@ public class DeliveredFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_delivered, container, false);
-
         back= view.findViewById(R.id.back_button_rate);
         ViewPager2 viewPager2 = view.findViewById(R.id.viewPager2);
         YourFragmentPagerAdapter adapter = new YourFragmentPagerAdapter(requireActivity());
         viewPager2.setAdapter(adapter);
-
         hideBottomNavigationView();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +38,6 @@ public class DeliveredFragment extends Fragment {
         });
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            // Thiết lập tên cho mỗi tab dựa trên vị trí (position)
             switch (position) {
                 case 0:
                     tab.setText("Chưa đánh giá");
@@ -49,21 +45,18 @@ public class DeliveredFragment extends Fragment {
                 case 1:
                     tab.setText("Đã đánh giá");
                     break;
-                // Thêm các trường hợp khác nếu có nhiều hơn 2 tab
             }
         }).attach();
 
-        // Bắt sự kiện lướt trang
+
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                // Trang mới được chọn
+
                 if (position == 0) {
-                    // Trang A được chọn
-                    // Thực hiện các xử lý khi chuyển sang trang A
+
                 } else if (position == 1) {
-                    // Trang B được chọn
-                    // Thực hiện các xử lý khi chuyển sang trang B
+
                 }
             }
         });

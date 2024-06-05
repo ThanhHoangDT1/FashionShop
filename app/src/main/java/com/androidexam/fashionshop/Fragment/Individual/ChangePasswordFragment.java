@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidexam.fashionshop.Api.ApiService;
 import com.androidexam.fashionshop.Model.ChangePassword;
@@ -21,6 +22,11 @@ import com.androidexam.fashionshop.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -124,29 +130,20 @@ public class ChangePasswordFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
+                        Toast.makeText(getContext(), "Thay đổi mật khẩu thành công.", Toast.LENGTH_SHORT).show();
                         backFragment();
                     } else {
                         try {
-                            String errorBodyString = response.errorBody().string();
-
-                            JsonObject errorJson = new Gson().fromJson(errorBodyString, JsonObject.class);
-
-
-                            String errorMessage = errorJson.getAsJsonObject("error").get("message").getAsString();
-
-                            curPasswordTextInputLayout.setError( errorMessage);
+                            String errorMessage = response.errorBody().string();
+                            JSONObject errorJson = new JSONObject(errorMessage);
+                            String message = errorJson.getString("message");
+                            curPasswordTextInputLayout.setError( message);
                             curPasswordTextInputLayout.setErrorEnabled(true);
-                            Log.e("User", "Error: " + errorMessage);
-                            Log.e("User", "Error Code: " + response.code());
-
-                            System.out.println("Error Body: " + errorMessage);
-                        } catch (Exception e) {
+                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                        } catch (IOException | JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
-
-
                 }
 
                 @Override

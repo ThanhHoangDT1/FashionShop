@@ -2,6 +2,7 @@ package com.androidexam.fashionshop.Adapter;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
@@ -24,25 +25,35 @@ import com.androidexam.fashionshop.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
     private List<Product> productList;
+    private ArrayList<Product> orgList;
     private FragmentManager fragmentManager;
+    private  String searchQuery;
+    private boolean isSearched;
 
     public ProductAdapter(List<Product> productList, FragmentManager fragmentManager) {
         this.productList = productList;
         this.fragmentManager = fragmentManager;
     }
-
-
+    public ProductAdapter(List<Product> productList, FragmentManager fragmentManager, boolean isSearched,String searchQuery) {
+        this.productList = productList;
+        this.fragmentManager = fragmentManager;
+        this.isSearched = isSearched;
+        this.searchQuery = searchQuery;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_item, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -53,10 +64,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         if (productIndex < productList.size()) {
             Product product = productList.get(productIndex);
             if (product != null) {
+
                 // Set data for your product item here
                 holder.productName.setText(product.getProductName());
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-
 
                 if(product.getPrice_promote()==product.getPrice()){
                     holder.productPrice.setVisibility(View.GONE);
@@ -116,13 +127,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         int productId = productList.get(productIndex).getId();
                         String productNAme = productList.get(productIndex).getProductName();
                         // Create DetailProductFragment and pass product ID
                         Log.d("Idproduct", String.valueOf(productId));
+                        Log.d("isSearched", String.valueOf(isSearched));
                         DetailProductFragment detailFragment = new DetailProductFragment();
                         Bundle args = new Bundle();
                         args.putInt("product_id", productId);
+                        args.putBoolean("isSearched",isSearched);
+                        Log.d("searchQuery", String.valueOf(searchQuery));
+                        if(searchQuery!=null){
+                            args.putString("searchQuery", searchQuery);
+                        }
+                        args.putSerializable("productList", (Serializable) productList);
                         detailFragment.setArguments(args);
 
                         // Start a Fragment transaction to replace the current Fragment
@@ -139,6 +158,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return productList.size();
     }
 
+    public void addProducts(List<Product> products) {
+        productList.addAll(products);
+        notifyDataSetChanged();
+    }
+    public void clearProducts() {
+        productList.clear();
+        notifyDataSetChanged();
+    }
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
+
+    public void setSearched(boolean isSearched) {
+        this.isSearched = isSearched;
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName;

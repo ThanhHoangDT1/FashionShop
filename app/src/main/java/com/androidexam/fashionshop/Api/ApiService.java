@@ -53,7 +53,7 @@ import java.util.List;
 
 public interface ApiService {
 
-   String BASE_URL = "http://192.168.31.173:8080";
+   String BASE_URL = "http://192.168.49.39:8080";
 
     //String BASE_URL = "http://192.168.4.21:8080";
 
@@ -103,23 +103,28 @@ public interface ApiService {
 
     // Định nghĩa yêu cầu API để lấy danh sách sản phẩm
     @GET("/products")
-    Call<ProductResponse> getAllProducts(@Query("page") int page);
+    Call<ProductResponse> getAllProducts(@Query("page") int page, @Query("items_per_page") int items_per_page);
     @GET("/products/all")
     Call<ProductResponse> getProductsall();
     @GET("/api/product/product/searchAll")
-    Call<ProductResponse> getProducts(@Query("keyword") String keyword);
+    Call<ProductResponse> getProducts(@Query("page") int page, @Query("items_per_page") int items_per_page,@Query("keyword") String keyword);
 
     @GET("/api/category")
     Call<List<Category>> getCategory();
 
 
+    @GET("/api/products/recommend-system/{userId}")
+    Call<ProductResponse> getRecommend(@Path("userId") int userId);
+
+
+
     
     @GET("/api/product/product/searchAll")
-    Call<ProductResponse> getProducts(@Query("keyword") String keyword, @Query("minprice") String minprice, @Query("maxprice") String maxprice, @Query("category") String category);
+    Call<ProductResponse> getProducts(@Query("page") int page, @Query("items_per_page") int items_per_page, @Query("keyword") String keyword, @Query("minprice") String minprice, @Query("maxprice") String maxprice, @Query("category") String category);
 
 
-    @GET("/products/product_detail")
-    Call<Product_Detail> Product_Detail(@Query("id") int id);
+    @GET("/products/product_detail/{id}")
+    Call<Product_Detail> Product_Detail(@Path("id") int id);
 
 
     @POST("/users/register")

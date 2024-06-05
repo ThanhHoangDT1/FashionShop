@@ -50,11 +50,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             CartItem paymentItem = paymentList.get(itemPaymentIndex);
             if (paymentItem != null) {
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                holder.nameTextView.setText(paymentItem.getProductName());
+
                 holder.quantity.setText(String.valueOf(paymentItem.getQuantity()));
                 holder.sizeTextView.setText(paymentItem.getSize());
                 holder.priceTextView.setText("đ"+String.valueOf(decimalFormat.format(paymentItem.getUnitPrice())));
-                if(paymentItem.getUrl()==null){
+
                     Log.d("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", "onBindViewHolder: ");
                     ApiService apiService = ApiService.retrofit.create(ApiService.class);
                     Call<Product_Detail> call1 = apiService.Product_Detail(paymentItem.getProductId());
@@ -65,7 +65,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                             if (response.isSuccessful()) {
                                 Product_Detail productDetail = response.body();
                                 if (productDetail != null) {
+                                    if(paymentItem.getUrl()==null){
                                     Picasso.get().load(productDetail.getProductUrls().get(0)).into(holder.imageView);
+                                    }
+                                    else{
+
+                                        Picasso.get().load(paymentItem.getUrl()).into(holder.imageView);}
+                                    holder.nameTextView.setText(productDetail.getProductName());
                                 }
                             } else {
                                 Log.e("ProductDetail", "Error: " + response.message());
@@ -79,9 +85,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
                             Log.e("ProductDetail", "API Call Failed: " + t.getMessage());
                         }
                     });
-                }
-                else{
-                Picasso.get().load(paymentItem.getUrl()).into(holder.imageView);}
+
 
             } else {
             }

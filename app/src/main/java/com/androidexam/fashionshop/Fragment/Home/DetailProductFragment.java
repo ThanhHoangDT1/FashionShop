@@ -41,10 +41,12 @@ import com.androidexam.fashionshop.Fragment.LogIn.LoginFragment;
 import com.androidexam.fashionshop.Fragment.Pay.PayFragment;
 import com.androidexam.fashionshop.MainActivity;
 import com.androidexam.fashionshop.Model.CartItem;
+import com.androidexam.fashionshop.Model.Product;
 import com.androidexam.fashionshop.Model.Product_Detail;
 import com.androidexam.fashionshop.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +67,12 @@ public class DetailProductFragment extends Fragment {
     }
 
     private   List<CartItem> cartItemList=new ArrayList<>();
+    private String searchQuery;
     private ArrayList<CartItem> cartItemArrayList ;
     private ArrayList<Integer> ListIds;
     private List<Integer> selectedIds = new ArrayList<>();
     private int userId;
+    private boolean isSearched;
     private int productId;
     private String selectedSize;
     private AlertDialog alertDialog;
@@ -81,6 +85,7 @@ public class DetailProductFragment extends Fragment {
     private ImageButton btnAddToCart;
     private Button btnBuyNow;
     private TextView cart_account;
+    List<Product> productList= new ArrayList<>();
     private FragmentManager childFragmentManager;
     private DetailContentFragment detailContentFragment;
 
@@ -121,11 +126,15 @@ public class DetailProductFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             productId = bundle.getInt("product_id", -1);
+            isSearched = bundle.getBoolean("isSearched",false);
+            searchQuery = bundle.getString("searchQuery",null);
+            productList = (List<Product>) bundle.getSerializable("productList");
             if (productId != -1) {
                 getProductDetail(productId);
             } else {
             }
         }
+        Log.d("isSearched", String.valueOf(isSearched));
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,7 +288,8 @@ public class DetailProductFragment extends Fragment {
                         int enteredQuantity = Integer.parseInt(editable.toString());
                         currentQuantity = enteredQuantity;
                         if (enteredQuantity > Integer.parseInt(quantityTextView.getText().toString())) {
-                            //     Toast.makeText(DetailProductFragment.this, "Số lượng không được lớn hơn " + remainingQuantity, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Số lượng đã đạt tối đa.", Toast.LENGTH_SHORT).show();
+
                             editTextQuantity.setText(quantityTextView.getText().toString());
                             currentQuantity = Integer.parseInt(quantityTextView.getText().toString());
                             return;
@@ -360,6 +370,7 @@ public class DetailProductFragment extends Fragment {
                         PayFragment payFragment = new PayFragment();
                         Bundle args = new Bundle();
                         args.putString("from","productDetail");
+
                         args.putParcelableArrayList("cartItemList", cartItemArrayList);
                         args.putIntegerArrayList("listId", ListIds);
                         payFragment.setArguments(args);
@@ -416,6 +427,14 @@ public class DetailProductFragment extends Fragment {
     private void onHome() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         HomeFragment homeFragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("isSearched", isSearched);
+        Log.d("isSearched", String.valueOf(isSearched));
+        if(searchQuery!=null){
+            args.putString("searchQuery", searchQuery);
+        }
+        args.putSerializable("productList", (Serializable) productList);
+        homeFragment.setArguments(args);
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, homeFragment)
                 .commit();

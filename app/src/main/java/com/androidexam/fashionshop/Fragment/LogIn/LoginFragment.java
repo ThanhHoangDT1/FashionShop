@@ -223,15 +223,10 @@ public class LoginFragment extends Fragment  {
                         } else {
                             messageTextView.setVisibility(View.VISIBLE);
                             try {
-                                // Lấy thông điệp lỗi từ phản hồi
                                 String errorMessage = response.errorBody().string();
-                                // Nếu thông điệp lỗi là JSON, bạn có thể sử dụng một thư viện JSON để phân tích cú pháp
                                 JSONObject errorJson = new JSONObject(errorMessage);
                                 String message = errorJson.getString("message");
-
-                                // Hiển thị thông báo lỗi hoặc xử lý theo nhu cầu của bạn
                                 Log.e("LoginFragment", "Login failed: " + message);
-                                // Bạn có thể hiển thị thông báo lỗi cho người dùng
                                 messageTextView.setText(message);
                                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                             } catch (IOException | JSONException e) {

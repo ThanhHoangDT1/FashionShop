@@ -47,7 +47,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.commentTime.setText(formattedDateTime);
 
         holder.rate.setRating(comment.getRate());
-        if (comment.getUrl() == null) {
+        holder.rate.setEnabled(false);
+        if (comment.getUrl() == "default_avatar_url") {
             String name = comment.getUsername();
             String firstLetter = name.substring(0, 1).toLowerCase();
 

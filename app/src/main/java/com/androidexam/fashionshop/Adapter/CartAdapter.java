@@ -271,6 +271,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                         if (enteredQuantity > cartItem.getRemain()) {
                             quantityEdt.removeTextChangedListener(this);
+                            Toast.makeText(context, "Số lượng đã đạt tối đa.", Toast.LENGTH_SHORT).show();
                             quantityEdt.setText(String.valueOf(cartItem.getRemain()));
                             currentQuantity = cartItem.getRemain();
                             quantityEdt.addTextChangedListener(this);
@@ -279,6 +280,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                         if (String.valueOf(enteredQuantity).length() > String.valueOf(cartItem.getRemain()).length()) {
                             quantityEdt.removeTextChangedListener(this);
+                            Toast.makeText(context, "Số lượng đã đạt tối đa.", Toast.LENGTH_SHORT).show();
                             quantityEdt.setText(String.valueOf(cartItem.getRemain()));
                             currentQuantity = cartItem.getRemain();
                             quantityEdt.addTextChangedListener(this);
